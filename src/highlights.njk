@@ -8,7 +8,7 @@ permalink: /highlights/
   <p class="lede">Papers featured on the home page, newest first.</p>
   {% for f in collections.featured %}
   <div class="feature-card">
-    {% if f.data.image %}<div class="feature-image"><img src="{{ f.data.image | url }}" alt="{{ f.data.image_alt }}"></div>{% endif %}
+    {% if f.data.image %}<div class="feature-image"><img src="{{ f.data.image }}" alt="{{ f.data.image_alt }}"></div>{% endif %}
     <div class="feature-body"><p class="eyebrow">{{ f.date | readableDate }}</p><h2><a href="{{ f.data.paper_url }}">{{ f.data.title }}</a></h2>{% if f.data.citation %}<p class="pub-meta">{{ f.data.citation }}</p>{% endif %}<div class="prose">{{ f.content | safe }}</div></div>
   </div>
   {% endfor %}

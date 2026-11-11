@@ -1,6 +1,10 @@
+import { HtmlBasePlugin } from "@11ty/eleventy";
+
 // Site build settings. Content lives in src/content as one small file per item,
 // so the Pages CMS editor (and Claude) can add or change things without touching code.
 export default function (eleventyConfig) {
+  // Adds the site's address prefix to every link, including links typed into page text.
+  eleventyConfig.addPlugin(HtmlBasePlugin);
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
 
   const pubGlob = "src/content/publications/*.md";

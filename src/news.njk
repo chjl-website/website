@@ -8,7 +8,7 @@ permalink: /news/
   <p class="lede">Testimony, talks, media coverage and lab announcements.</p>
   <ul class="news-list news-list-full">
     {% for n in collections.news %}
-    <li><p class="eyebrow">{{ n.date | readableDate }}{% if n.data.kind %} · {{ n.data.kind }}{% endif %}</p><h2><a href="{{ n.url | url }}">{{ n.data.title }}</a></h2>{% if n.data.teaser %}<p>{{ n.data.teaser }}</p>{% endif %}</li>
+    <li><p class="eyebrow">{{ n.date | readableDate }}{% if n.data.kind %} · {{ n.data.kind }}{% endif %}</p><h2><a href="{{ n.url }}">{{ n.data.title }}</a></h2>{% if n.data.teaser %}<p>{{ n.data.teaser }}</p>{% endif %}</li>
     {% endfor %}
   </ul>
 </section>

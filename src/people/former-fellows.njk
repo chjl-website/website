@@ -9,12 +9,12 @@ permalink: /people/former-fellows/
   <ul class="fellow-list">
     {% for p in collections.people | where("group", "former") %}{% set n = (collections.publications | byMember(p.page.fileSlug)).length %}
     <li class="fellow">
-      {% if p.data.photo %}<img class="avatar" src="{{ p.data.photo | url }}" alt="">{% else %}<span class="avatar avatar-initials" aria-hidden="true">{{ p.data.name | initials }}</span>{% endif %}
+      {% if p.data.photo %}<img class="avatar" src="{{ p.data.photo }}" alt="">{% else %}<span class="avatar avatar-initials" aria-hidden="true">{{ p.data.name | initials }}</span>{% endif %}
       <div>
-        <p class="person-name"><a href="{{ p.url | url }}">{{ p.data.name }}{% if p.data.credentials %}, {{ p.data.credentials }}{% endif %}</a>{% if p.data.fellowship_years %} <span class="muted">· Fellow {{ p.data.fellowship_years }}</span>{% endif %}</p>
+        <p class="person-name"><a href="{{ p.url }}">{{ p.data.name }}{% if p.data.credentials %}, {{ p.data.credentials }}{% endif %}</a>{% if p.data.fellowship_years %} <span class="muted">· Fellow {{ p.data.fellowship_years }}</span>{% endif %}</p>
         {% if p.data.current_position %}<p class="fellow-now"><span class="label">Now</span> {{ p.data.current_position }}</p>{% endif %}
         {% if p.data.research_focus %}<p class="fellow-focus"><span class="label">Worked on</span> {{ p.data.research_focus }}</p>{% endif %}
-        {% if n %}<p><a class="text-link" href="{{ ('/publications/?member=' + p.page.fileSlug) | url }}">{{ n }} publication{% if n != 1 %}s{% endif %} with the lab</a></p>{% endif %}
+        {% if n %}<p><a class="text-link" href="{{ ('/publications/?member=' + p.page.fileSlug) }}">{{ n }} publication{% if n != 1 %}s{% endif %} with the lab</a></p>{% endif %}
       </div>
     </li>
     {% endfor %}

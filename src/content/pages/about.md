@@ -1,10 +1,10 @@
 ---
 title: About the lab
-lede: Physician-researchers at Cambridge Health Alliance and Harvard Medical School, committed to illuminating, teaching about and eliminating health inequalities.
+lede: A research group based at Cambridge Health Alliance and Harvard Medical School, committed to illuminating, teaching about and eliminating health inequalities.
 ---
-## Who we are
+## About the lab
 
-The Cambridge Health Justice Lab studies how the financing, coverage, accessibility and quality of health care affect people who are poor, uninsured or face discrimination. We are based in the Department of Medicine at Cambridge Health Alliance and Harvard Medical School.
+The Cambridge Health Justice Lab studies how the financing, coverage, accessibility and quality of health care affect people who are poor, uninsured or face discrimination. The lab is based in the Department of Medicine at Cambridge Health Alliance and Harvard Medical School.
 
 ## History
 

@@ -5,7 +5,7 @@ permalink: /highlights/
 ---
 <section class="wrap section">
   <h1>Research highlights</h1>
-  <p class="lede">Papers we've featured on the home page, newest first.</p>
+  <p class="lede">Papers featured on the home page, newest first.</p>
   {% for f in collections.featured %}
   <div class="feature-card">
     {% if f.data.image %}<div class="feature-image"><img src="{{ f.data.image | url }}" alt="{{ f.data.image_alt }}"></div>{% endif %}

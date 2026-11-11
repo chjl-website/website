@@ -6,7 +6,7 @@ permalink: /publications/
 {% set pubs = collections.publications %}
 <section class="wrap section">
   <h1>Publications</h1>
-  <p class="lede">{{ pubs.length }} research papers, commentaries and op-eds by lab members. Filter by topic, lab member, type or year, or search titles and authors.</p>
+  <p class="lede">Cambridge Health Justice Lab researchers have published {{ pubs.length }} research papers, commentaries and op-eds. Use the filters below to browse them by topic, author, type or year.</p>
   <form class="filters" id="filters" role="search" onsubmit="return false">
     <label class="f-search"><span>Search</span><input type="search" name="q" placeholder="Title, author or journal"></label>
     <label><span>Topic</span><select name="topic"><option value="">All topics</option>{% for t in collections.topics %}<option value="{{ t.page.fileSlug }}">{{ t.data.name }}</option>{% endfor %}</select></label>

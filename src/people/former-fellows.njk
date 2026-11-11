@@ -5,7 +5,7 @@ permalink: /people/former-fellows/
 ---
 <section class="wrap section">
   <h1>Former fellows</h1>
-  <p class="lede">Fellows trained with the lab through the Harvard Medical School Fellowship in General Medicine and Primary Care. Here is where they are now and the work they did with us.</p>
+  <p class="lede">Fellows trained with the lab through the Harvard Medical School Fellowship in General Medicine and Primary Care. Here is where they are now and the work they did with the lab.</p>
   <ul class="fellow-list">
     {% for p in collections.people | where("group", "former") %}{% set n = (collections.publications | byMember(p.page.fileSlug)).length %}
     <li class="fellow">

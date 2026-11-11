@@ -1,0 +1,30 @@
+# Every Monday, looks up new PubMed papers by current lab members and adds them
+# as hidden drafts. An editor approves each one in the editing form.
+name: Weekly PubMed check
+on:
+  schedule:
+    - cron: "0 12 * * 1"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/pubmed-check.mjs
+        env:
+          NCBI_API_KEY: ${{ secrets.NCBI_API_KEY }}
+      - name: Save new drafts
+        run: |
+          if [ -n "$(git status --porcelain src/content/publications)" ]; then
+            git config user.name "Weekly PubMed check"
+            git config user.email "actions@users.noreply.github.com"
+            git add src/content/publications
+            git commit -m "Add new PubMed papers as drafts for review"
+            git push
+          else
+            echo "No new papers this week."
+          fi

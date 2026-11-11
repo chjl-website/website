@@ -1,0 +1,56 @@
+---
+layout: base.njk
+title: Cambridge Health Justice Lab
+---
+{% set feature = collections.featured[0] %}
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Cambridge Health Alliance · Harvard Medical School</p>
+    <h1>{{ site.tagline }}</h1>
+    <p class="lede">We use data to reveal the health and social policies that undermine health and health equity in the United States, support evidence-based advocacy for structural change, and train the next generation of physician-researchers.</p>
+    <p class="hero-actions"><a class="button" href="{{ '/publications/' | url }}">Browse {{ collections.publications.length }} publications</a> <a class="button button-quiet" href="{{ '/about/' | url }}">About the lab</a></p>
+  </div>
+</section>
+
+<section class="wrap section featured">
+  <p class="eyebrow">Featured research</p>
+  {% if feature %}
+  <div class="feature-card">
+    {% if feature.data.image %}<div class="feature-image"><img src="{{ feature.data.image | url }}" alt="{{ feature.data.image_alt }}"></div>{% endif %}
+    <div class="feature-body">
+      <h2><a href="{{ feature.data.paper_url }}">{{ feature.data.title }}</a></h2>
+      {% if feature.data.citation %}<p class="pub-meta">{{ feature.data.citation }}</p>{% endif %}
+      <div class="prose">{{ feature.content | safe }}</div>
+      <p><a class="button" href="{{ feature.data.paper_url }}">Read the paper</a> <a class="text-link" href="{{ '/highlights/' | url }}">More research highlights</a></p>
+    </div>
+  </div>
+  {% else %}
+  {% set p = collections.publications[0] %}
+  <div class="feature-card"><div class="feature-body"><h2><a href="{{ p.data | pubLink }}">{{ p.data.title }}</a></h2><p class="pub-meta">{{ p.data.authors }} · <em>{{ p.data.venue | journal }}</em> · {{ p.data.year }}</p></div></div>
+  {% endif %}
+</section>
+
+<section class="wrap section">
+  <div class="section-head"><h2>Research topics</h2><a class="text-link" href="{{ '/topics/' | url }}">All topics</a></div>
+  <ul class="topic-grid">
+    {% for t in collections.topics %}{% set n = (collections.publications | byTopic(t.page.fileSlug)).length %}
+    <li><a href="{{ ('/topics/' + t.page.fileSlug + '/') | url }}"><span class="topic-name">{{ t.data.name }}</span><span class="topic-count">{{ n }} papers</span></a></li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section class="wrap section two-col">
+  <div>
+    <div class="section-head"><h2>Recent publications</h2><a class="text-link" href="{{ '/publications/' | url }}">All publications</a></div>
+    <ol class="pub-list">{% for p in collections.publications | limit(5) %}{% include "pub-item.njk" %}{% endfor %}</ol>
+  </div>
+  <div>
+    <div class="section-head"><h2>News</h2><a class="text-link" href="{{ '/news/' | url }}">All news</a></div>
+    <ul class="news-list">
+      {% for n in collections.news | limit(4) %}
+      <li><p class="eyebrow">{{ n.date | readableDate }}{% if n.data.kind %} · {{ n.data.kind }}{% endif %}</p><a href="{{ n.url | url }}">{{ n.data.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+<script src="{{ '/assets/js/badges.js' | url }}" defer></script>

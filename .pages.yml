@@ -1,0 +1,142 @@
+# Editing form for Pages CMS (app.pagescms.org). Lab members invited by email
+# can add papers, news, people and featured articles here without touching code.
+media:
+  input: src/assets/img
+  output: /assets/img
+
+content:
+  - name: publications
+    label: Publications
+    type: collection
+    path: src/content/publications
+    format: yaml-frontmatter
+    filename: "{year}-{primary}.md"
+    exclude: [publications.json]
+    view:
+      fields: [title, year, type, draft]
+      primary: title
+      sort: [year, title]
+      default: { sort: year, order: desc }
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: authors, label: Authors, type: string }
+      - { name: year, label: Year, type: number }
+      - { name: venue, label: Journal or outlet, type: string }
+      - name: type
+        label: Type
+        type: select
+        options: { values: [Research, Commentary, Op-ed or magazine] }
+      - name: topics
+        label: Topics
+        type: reference
+        options: { collection: topics, multiple: true, value: "{path}", label: "{fields.name}", search: name }
+      - name: members
+        label: Lab members who wrote it
+        type: reference
+        options: { collection: people, multiple: true, value: "{path}", label: "{fields.name}", search: name }
+      - { name: pmid, label: PubMed ID (leave blank if none), type: string }
+      - { name: url, label: Link (if not on PubMed), type: string }
+      - { name: summary, label: One-line plain-language summary, type: text }
+      - { name: draft, label: "Hidden: waiting for approval (untick to show on the site)", type: boolean }
+
+  - name: featured
+    label: Featured article (home page)
+    type: collection
+    path: src/content/featured
+    format: yaml-frontmatter
+    filename: "{year}-{month}-{primary}.md"
+    exclude: [featured.json]
+    view: { fields: [title, date], default: { sort: date, order: desc } }
+    fields:
+      - { name: title, label: Headline, type: string, required: true }
+      - { name: date, label: Date featured (newest shows on the home page), type: date }
+      - { name: paper_url, label: Link to the paper, type: string }
+      - { name: citation, label: Citation line, type: string }
+      - { name: image, label: Graphic, type: image }
+      - { name: image_alt, label: Describe the graphic for screen readers, type: string }
+      - { name: body, label: Two or three sentences on the findings, type: rich-text }
+      - { name: draft, label: Hidden, type: boolean }
+
+  - name: news
+    label: News
+    type: collection
+    path: src/content/news
+    format: yaml-frontmatter
+    filename: "{year}-{month}-{day}-{primary}.md"
+    exclude: [news.json]
+    view: { fields: [title, date, kind], default: { sort: date, order: desc } }
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: date, label: Date, type: date }
+      - name: kind
+        label: Kind
+        type: select
+        options: { values: [In the news, Op-ed, Testimony, Talk, Award, Announcement] }
+      - { name: teaser, label: One-line teaser, type: text }
+      - { name: link, label: Link to the story or document, type: string }
+      - { name: link_label, label: Button text, type: string }
+      - { name: video, label: YouTube embed link (optional), type: string }
+      - { name: body, label: Text, type: rich-text }
+      - { name: draft, label: Hidden, type: boolean }
+
+  - name: people
+    label: People
+    type: collection
+    path: src/content/people
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    exclude: [people.json]
+    view: { fields: [name, group, order], primary: name, default: { sort: order, order: asc } }
+    fields:
+      - { name: name, label: Name, type: string, required: true }
+      - { name: credentials, label: Degrees, type: string }
+      - name: group
+        label: Shown as
+        type: select
+        options: { values: [current, former, unlisted] }
+      - { name: role, label: Role (optional), type: string }
+      - { name: order, label: Order on the page, type: number }
+      - { name: photo, label: Photo, type: image }
+      - { name: current_position, label: "Former fellows: current position", type: string }
+      - { name: research_focus, label: "Former fellows: what they worked on", type: string }
+      - { name: fellowship_years, label: "Former fellows: fellowship years", type: string }
+      - { name: pubmed_query, label: "PubMed search for the weekly paper check (Claude can set this)", type: string }
+      - { name: body, label: Bio, type: rich-text }
+
+  - name: topics
+    label: Research topics
+    type: collection
+    path: src/content/topics
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    exclude: [topics.json]
+    view: { fields: [name, order], primary: name, default: { sort: order, order: asc } }
+    fields:
+      - { name: name, label: Topic name (rename here), type: string, required: true }
+      - { name: order, label: Order, type: number }
+      - { name: body, label: Short introduction, type: rich-text }
+
+  - name: pages
+    label: Pages
+    type: collection
+    path: src/content/pages
+    format: yaml-frontmatter
+    exclude: [pages.json]
+    view: { fields: [title] }
+    fields:
+      - { name: title, label: Title, type: string }
+      - { name: lede, label: Opening line, type: text }
+      - { name: body, label: Text, type: rich-text }
+
+  - name: site
+    label: Site settings
+    type: file
+    path: src/_data/site.json
+    format: json
+    fields:
+      - { name: name, label: Lab name, type: string }
+      - { name: tagline, label: Home page headline, type: string }
+      - { name: description, label: Description for search engines, type: text }
+      - { name: twitter, label: X (Twitter) link, type: string }
+      - { name: email, label: Contact email, type: string }
+      - { name: donate_url, label: Donation link, type: string }

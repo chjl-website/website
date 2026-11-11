@@ -1,0 +1,13 @@
+---
+layout: base.njk
+title: Research topics
+permalink: /topics/
+---
+<section class="wrap section">
+  <h1>Research topics</h1>
+  <ul class="topic-grid">
+    {% for t in collections.topics %}{% set n = (collections.publications | byTopic(t.page.fileSlug)).length %}
+    <li><a href="{{ ('/topics/' + t.page.fileSlug + '/') | url }}"><span class="topic-name">{{ t.data.name }}</span><span class="topic-count">{{ n }} papers</span></a></li>
+    {% endfor %}
+  </ul>
+</section>

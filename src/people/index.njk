@@ -1,0 +1,21 @@
+---
+layout: base.njk
+title: People
+permalink: /people/
+---
+<section class="wrap section">
+  <h1>People</h1>
+  <p class="lede">Physicians and researchers at Cambridge Health Alliance, Harvard Medical School and CUNY Hunter College. See also our <a href="{{ '/people/former-fellows/' | url }}">former fellows</a>.</p>
+  <ul class="people-grid">
+    {% for p in collections.people | where("group", "current") %}
+    <li class="person-card">
+      <a href="{{ p.url | url }}">
+        {% if p.data.photo %}<img class="avatar" src="{{ p.data.photo | url }}" alt="">{% else %}<span class="avatar avatar-initials" aria-hidden="true">{{ p.data.name | initials }}</span>{% endif %}
+        <span class="person-name">{{ p.data.name }}{% if p.data.credentials %}, {{ p.data.credentials }}{% endif %}</span>
+        {% if p.data.role %}<span class="person-role">{{ p.data.role }}</span>{% endif %}
+      </a>
+      <p class="person-bio">{{ p.content | striptags | truncate(160) }}</p>
+    </li>
+    {% endfor %}
+  </ul>
+</section>

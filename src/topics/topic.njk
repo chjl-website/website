@@ -1,0 +1,20 @@
+---
+layout: base.njk
+pagination:
+  data: collections.topics
+  size: 1
+  alias: topic
+permalink: "/topics/{{ topic.page.fileSlug }}/"
+eleventyComputed:
+  title: "{{ topic.data.name }}"
+---
+{% set slug = topic.page.fileSlug %}{% set pubs = collections.publications | byTopic(slug) %}
+<section class="wrap section">
+  <p class="eyebrow"><a href="{{ '/topics/' | url }}">Research topics</a></p>
+  <h1>{{ topic.data.name }}</h1>
+  {% if topic.content | striptags | trim %}<div class="prose narrow">{{ topic.content | safe }}</div>{% endif %}
+  <p class="lede">{{ pubs.length }} publications. <a href="{{ ('/publications/?topic=' + slug) | url }}">Filter these by lab member or year</a>.</p>
+  <ol class="pub-list">{% for p in pubs | limit(40) %}{% include "pub-item.njk" %}{% endfor %}</ol>
+  {% if pubs.length > 40 %}<p><a class="button" href="{{ ('/publications/?topic=' + slug) | url }}">See all {{ pubs.length }}</a></p>{% endif %}
+</section>
+<script src="{{ '/assets/js/badges.js' | url }}" defer></script>

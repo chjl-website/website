@@ -1,0 +1,11 @@
+{# One publication in a list. Expects `p` (a publication from collections.publications). #}
+{% set d = p.data %}{% set link = d | pubLink %}
+<li class="pub" data-year="{{ d.year }}" data-type="{{ d.type }}" data-topics="{{ d.topics | refs | join(' ') }}" data-members="{{ d.members | refs | join(' ') }}">
+  <div class="pub-main">
+    <p class="pub-title">{% if link %}<a href="{{ link }}">{{ d.title }}</a>{% else %}{{ d.title }}{% endif %}</p>
+    {% if d.summary %}<p class="pub-summary">{{ d.summary }}</p>{% endif %}
+    <p class="pub-meta">{{ d.authors }}{% if d.venue %} · <em>{{ d.venue | journal }}</em>{% endif %} · {{ d.year }}</p>
+    <p class="pub-tags"><span class="tag tag-type">{{ d.type }}</span>{% for t in d.topics | refs %}<a class="tag" href="{{ ('/topics/' + t + '/') | url }}">{{ t | topicName(collections.topics) }}</a>{% endfor %}</p>
+  </div>
+  {% if d.pmid %}<div class="pub-badge" data-pmid="{{ d.pmid }}" aria-hidden="true"></div>{% endif %}
+</li>

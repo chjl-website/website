@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if title and title != site.name %}{{ title }} · {% endif %}{{ site.name }}</title>
+<meta name="description" content="{{ description or site.description }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
+<link rel="stylesheet" href="{{ '/assets/css/style.css' | url }}">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="{{ '/' | url }}"><span class="brand-mark">CHJL</span><span class="brand-name">{{ site.name }}</span></a>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" class="nav">
+      {% set navItems = [["/about/","About"],["/people/","People"],["/publications/","Publications"],["/news/","News"],["/training/","Training"],["/contact/","Contact"]] %}
+      {% for item in navItems %}<a href="{{ item[0] | url }}"{% if page.url.startsWith(item[0]) %} aria-current="page"{% endif %}>{{ item[1] }}</a>{% endfor %}
+      <a class="nav-donate" href="{{ '/donate/' | url }}">Donate</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+{{ content | safe }}
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <p class="footer-name">{{ site.name }}</p>
+      <p class="muted">{% for line in site.address %}{{ line }}<br>{% endfor %}</p>
+    </div>
+    <div>
+      <p class="footer-label">Explore</p>
+      <p><a href="{{ '/publications/' | url }}">Publications</a><br><a href="{{ '/topics/' | url }}">Research topics</a><br><a href="{{ '/highlights/' | url }}">Research highlights</a><br><a href="{{ '/people/former-fellows/' | url }}">Former fellows</a></p>
+    </div>
+    <div>
+      <p class="footer-label">Connect</p>
+      <p><a href="{{ '/contact/' | url }}">Contact</a><br><a href="{{ site.twitter }}">X (Twitter)</a><br><a href="{{ '/donate/' | url }}">Support our work</a></p>
+    </div>
+  </div>
+  <div class="wrap footer-base muted">© {{ "now" | year }} {{ site.name }} · Cambridge Health Alliance and Harvard Medical School</div>
+</footer>
+<script>
+document.querySelector('.menu-toggle')?.addEventListener('click', e => {
+  const open = e.currentTarget.getAttribute('aria-expanded') === 'true';
+  e.currentTarget.setAttribute('aria-expanded', String(!open));
+  document.getElementById('nav').classList.toggle('open', !open);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+---
+layout: base.njk
+title: Publications
+permalink: /publications/
+---
+{% set pubs = collections.publications %}
+<section class="wrap section">
+  <h1>Publications</h1>
+  <p class="lede">{{ pubs.length }} research papers, commentaries and op-eds by lab members. Filter by topic, lab member, type or year, or search titles and authors.</p>
+  <form class="filters" id="filters" role="search" onsubmit="return false">
+    <label class="f-search"><span>Search</span><input type="search" name="q" placeholder="Title, author or journal"></label>
+    <label><span>Topic</span><select name="topic"><option value="">All topics</option>{% for t in collections.topics %}<option value="{{ t.page.fileSlug }}">{{ t.data.name }}</option>{% endfor %}</select></label>
+    <label><span>Lab member</span><select name="member"><option value="">Everyone</option>
+      <optgroup label="Lab members">{% for p in collections.people %}{% if p.data.group != "former" %}<option value="{{ p.page.fileSlug }}">{{ p.data.name }}</option>{% endif %}{% endfor %}</optgroup>
+      <optgroup label="Former fellows">{% for p in collections.people | where("group", "former") %}<option value="{{ p.page.fileSlug }}">{{ p.data.name }}</option>{% endfor %}</optgroup>
+    </select></label>
+    <label><span>Type</span><select name="type"><option value="">All types</option><option>Research</option><option>Commentary</option><option>Op-ed or magazine</option></select></label>
+    <label><span>From</span><select name="from"><option value="">Any year</option></select></label>
+    <button type="button" class="button button-quiet" id="reset">Clear</button>
+  </form>
+  <p class="result-count" id="count" aria-live="polite"></p>
+  <ol class="pub-list" id="pubs">{% for p in pubs %}{% include "pub-item.njk" %}{% endfor %}</ol>
+  <p class="more"><button type="button" class="button" id="more">Show more</button></p>
+</section>
+<script src="{{ '/assets/js/publications.js' | url }}" defer></script>
+<script src="{{ '/assets/js/badges.js' | url }}" defer></script>

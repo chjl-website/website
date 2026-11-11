@@ -1,0 +1,26 @@
+---
+layout: base.njk
+---
+{% set slug = page.fileSlug %}
+{% set pubs = collections.publications | byMember(slug) %}
+<article class="wrap person-page">
+  <div class="person-head">
+    {% if photo %}<img class="avatar avatar-lg" src="{{ photo | url }}" alt="{{ name }}">{% else %}<div class="avatar avatar-lg avatar-initials" aria-hidden="true">{{ name | initials }}</div>{% endif %}
+    <div>
+      <p class="eyebrow">{% if group == "former" %}Former fellow{% elif role %}{{ role }}{% else %}Lab member{% endif %}</p>
+      <h1>{{ name }}{% if credentials %}, {{ credentials }}{% endif %}</h1>
+      {% if current_position %}<p class="lede">{{ current_position }}</p>{% endif %}
+      {% if research_focus %}<p><strong>Research focus:</strong> {{ research_focus }}</p>{% endif %}
+    </div>
+  </div>
+  <div class="prose narrow">{{ content | safe }}</div>
+  {% if pubs.length %}
+  <section class="section">
+    <h2>Publications with the lab <span class="count">{{ pubs.length }}</span></h2>
+    <p><a href="{{ ('/publications/?member=' + slug) | url }}">Filter these on the publications page</a></p>
+    <ol class="pub-list">{% for p in pubs | limit(12) %}{% include "pub-item.njk" %}{% endfor %}</ol>
+    {% if pubs.length > 12 %}<p><a class="button" href="{{ ('/publications/?member=' + slug) | url }}">See all {{ pubs.length }}</a></p>{% endif %}
+  </section>
+  {% endif %}
+</article>
+<script src="{{ '/assets/js/badges.js' | url }}" defer></script>

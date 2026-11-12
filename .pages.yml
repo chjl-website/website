@@ -126,6 +126,9 @@ content:
     fields:
       - { name: title, label: Title, type: string }
       - { name: lede, label: Opening line, type: text }
+      - { name: image, label: Photo, type: image }
+      - { name: image_alt, label: Photo description (for screen readers), type: string }
+      - { name: image_caption, label: Photo caption, type: string }
       - { name: body, label: Text, type: rich-text }
 
   - name: site

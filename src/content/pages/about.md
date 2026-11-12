@@ -1,6 +1,9 @@
 ---
 title: About the lab
 lede: A research group based at Cambridge Health Alliance and Harvard Medical School, committed to illuminating, teaching about and eliminating health inequalities.
+image: "/assets/img/photos/cha-cambridge-hospital.jpg"
+image_alt: "CHA Cambridge Hospital on Cambridge Street, with its main entrance sign"
+image_caption: "The lab is based at CHA Cambridge Hospital."
 ---
 ## About the lab
 

@@ -4,11 +4,14 @@ title: Cambridge Health Justice Lab
 ---
 {% set feature = collections.featured[0] %}
 <section class="hero">
-  <div class="wrap">
+  <div class="wrap hero-grid">
+    <div>
     <p class="eyebrow">Cambridge Health Alliance · Harvard Medical School</p>
     <h1>{{ site.tagline }}</h1>
     <p class="lede">The Cambridge Health Justice Lab uses data to reveal the health and social policies that undermine health and health equity in the United States, supports evidence-based advocacy for structural change, and trains the next generation of physician-researchers.</p>
     <p class="hero-actions"><a class="button" href="{{ '/publications/' }}">Browse {{ collections.publications.length }} publications</a> <a class="button button-quiet" href="{{ '/about/' }}">About the lab</a></p>
+    </div>
+    <img class="hero-logo" src="{{ '/assets/img/brand/chjl-logo.png' }}" alt="Cambridge Health Justice Lab logo" width="320" height="177">
   </div>
 </section>
 
@@ -28,6 +31,15 @@ title: Cambridge Health Justice Lab
   {% set p = collections.publications[0] %}
   <div class="feature-card"><div class="feature-body"><h2><a href="{{ p.data | pubLink }}">{{ p.data.title }}</a></h2><p class="pub-meta">{{ p.data.authors }} · <em>{{ p.data.venue | journal }}</em> · {{ p.data.year }}</p></div></div>
   {% endif %}
+</section>
+
+<section class="wrap section">
+  <div class="section-head"><h2>The team</h2><a class="text-link" href="{{ '/people/' }}">Meet the team</a></div>
+  <ul class="team-strip">
+    {% for p in collections.people | where("group", "current") %}
+    <li><a href="{{ p.url }}">{% if p.data.photo %}<img class="avatar" src="{{ p.data.photo }}" alt="" loading="lazy">{% else %}<span class="avatar avatar-initials" aria-hidden="true">{{ p.data.name | initials }}</span>{% endif %}<span>{{ p.data.name }}</span></a></li>
+    {% endfor %}
+  </ul>
 </section>
 
 <section class="wrap section">

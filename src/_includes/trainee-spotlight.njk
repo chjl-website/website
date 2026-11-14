@@ -1,0 +1,10 @@
+{% set tw = collections.publications | traineeWork(collections.people) %}
+{% if tw.length %}
+<section class="trainee-spotlight">
+  <h2>Recent work by our fellows</h2>
+  <p>Our fellows lead and co-author much of the lab's work, and keep publishing with us after they move on. Here is some of the most recent.</p>
+  {% include "trainee-key.njk" %}
+  <ol class="pub-list">{% for p in tw | limit(5) %}{% include "pub-item.njk" %}{% endfor %}</ol>
+  <p><a class="text-link" href="/publications/?trainee=1">All work by our fellows ({{ tw.length }})</a></p>
+</section>
+{% endif %}

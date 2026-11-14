@@ -32,6 +32,34 @@ export default function (eleventyConfig) {
   const ref = (v) => String(v || "").split("/").pop().replace(/\.md$/, "");
   const refs = (list) => (Array.isArray(list) ? list : list ? [list] : []).map(ref);
   eleventyConfig.addFilter("refs", refs);
+
+  // Trainee work: a paper counts when someone on the Former fellows page is an author
+  // and a current lab member is tagged on it. Fellows are found in author lists by
+  // surname and first initial ("Hawks L", "Wilper AP") or by full name.
+  const esc = (s) => String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const reEsc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const fellowMatcher = (p) => {
+    const w = String(p.data.name).replace(/\(.*?\)/g, "").trim().split(/\s+/);
+    const first = w[0], last = w[w.length - 1];
+    const re = new RegExp(`^${reEsc(last)} ${first[0]}[A-Z]*$`);
+    const full = String(p.data.name).trim().toLowerCase();
+    return (a) => re.test(a) || a.toLowerCase() === full;
+  };
+  const authorList = (d) => String(d.authors || "").split(/,\s*/).map((a) => a.trim());
+  const traineesOn = (d, people) => {
+    const current = new Set((people || []).filter((p) => p.data.group === "current").map((p) => p.page.fileSlug));
+    if (!refs(d.members).some((m) => current.has(m))) return [];
+    const authors = authorList(d);
+    return (people || []).filter((p) => p.data.group === "former" && authors.some(fellowMatcher(p)));
+  };
+  eleventyConfig.addFilter("markTrainees", (d, people) => {
+    const tests = traineesOn(d, people).map(fellowMatcher);
+    return authorList(d).filter(Boolean).map((a) =>
+      tests.some((t) => t(a)) ? `<span class="trainee">${esc(a)}<sup class="dagger" title="Former lab fellow">†</sup><span class="sr-only"> (former lab fellow)</span></span>` : esc(a)
+    ).join(", ");
+  });
+  eleventyConfig.addFilter("isTraineeWork", (d, people) => traineesOn(d, people).length > 0);
+  eleventyConfig.addFilter("traineeWork", (pubs, people) => pubs.filter((p) => traineesOn(p.data, people).length > 0));
   eleventyConfig.addFilter("byTopic", (pubs, slug) => pubs.filter((p) => refs(p.data.topics).includes(slug)));
   eleventyConfig.addFilter("byMember", (pubs, slug) => pubs.filter((p) => refs(p.data.members).includes(slug)));
   eleventyConfig.addFilter("journal", (v) => String(v || "").replace(/\s*\(.*?\)\s*$/, "").replace(/\b([a-z])/g, (m, c, i, str) =>

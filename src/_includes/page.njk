@@ -6,4 +6,5 @@ layout: base.njk
   {% if lede %}<p class="lede">{{ lede }}</p>{% endif %}
   {% if image %}<figure class="page-photo"><img src="{{ image }}" alt="{{ image_alt }}" loading="lazy">{% if image_caption %}<figcaption>{{ image_caption }}</figcaption>{% endif %}</figure>{% endif %}
   <div class="prose">{{ content | safe }}</div>
+  {% if trainee_spotlight %}{% include "trainee-spotlight.njk" %}{% endif %}
 </article>

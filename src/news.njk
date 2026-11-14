@@ -3,12 +3,35 @@ layout: base.njk
 title: News
 permalink: /news/
 ---
+{%- set kinds = [] -%}
+{%- for n in collections.news -%}{%- if n.data.kind and not (n.data.kind in kinds) -%}{%- set kinds = (kinds.push(n.data.kind), kinds) -%}{%- endif -%}{%- endfor -%}
 <section class="wrap narrow section">
   <h1>News</h1>
-  <p class="lede">Testimony, talks, media coverage and lab announcements.</p>
-  <ul class="news-list news-list-full">
-    {% for n in collections.news %}
-    <li><p class="eyebrow">{{ n.date | readableDate }}{% if n.data.kind %} · {{ n.data.kind }}{% endif %}</p><h2><a href="{{ n.url }}">{{ n.data.title }}</a></h2>{% if n.data.teaser %}<p>{{ n.data.teaser }}</p>{% endif %}</li>
-    {% endfor %}
+  <p class="lede">Media coverage of the lab's research, plus testimony, talks and lab announcements.</p>
+  <div class="chips" id="news-filter" role="group" aria-label="Show">
+    <button type="button" class="chip is-on" data-kind="">All</button>
+    {%- for k in kinds %}<button type="button" class="chip" data-kind="{{ k }}">{{ k }}</button>{% endfor %}
+  </div>
+  <ul class="news-list news-list-full" id="news">
+    {%- for n in collections.news %}
+    {%- set href = n.data.link if n.data.external else n.url %}
+    <li data-kind="{{ n.data.kind }}">
+      <p class="eyebrow">{{ n.date | readableDate }}{% if n.data.kind %} · {{ n.data.kind }}{% endif %}</p>
+      {% if n.data.outlet %}<p class="outlet">{{ n.data.outlet }}</p>{% endif %}
+      <h2><a href="{{ href }}">{{ n.data.title }}</a></h2>
+      {% if n.data.teaser %}<p>{{ n.data.teaser }}</p>{% endif %}
+    </li>
+    {%- endfor %}
   </ul>
 </section>
+<script>
+(function () {
+  var bar = document.getElementById('news-filter');
+  var items = document.querySelectorAll('#news > li');
+  bar.addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    bar.querySelectorAll('button').forEach(function (x) { x.classList.toggle('is-on', x === b); });
+    items.forEach(function (li) { li.hidden = !!b.dataset.kind && li.dataset.kind !== b.dataset.kind; });
+  });
+})();
+</script>

@@ -63,17 +63,23 @@ content:
     path: src/content/news
     format: yaml-frontmatter
     filename: "{year}-{month}-{day}-{primary}.md"
-    exclude: [news.json]
-    view: { fields: [title, date, kind], default: { sort: date, order: desc } }
+    exclude: [news.11tydata.js]
+    view: { fields: [title, date, kind, outlet], default: { sort: date, order: desc } }
     fields:
       - { name: title, label: Title, type: string, required: true }
       - { name: date, label: Date, type: date }
       - name: kind
         label: Kind
         type: select
-        options: { values: [In the news, Op-ed, Testimony, Talk, Award, Announcement] }
+        options: { values: [In the news, Interview, Op-ed, Testimony, Talk, Award, Announcement] }
+      - { name: outlet, label: "News outlet (e.g. PBS NewsHour)", type: string }
       - { name: teaser, label: One-line teaser, type: text }
       - { name: link, label: Link to the story or document, type: string }
+      - { name: external, label: "Link straight to the story (no page on this site)", type: boolean }
+      - name: members
+        label: Lab members featured
+        type: reference
+        options: { collection: people, multiple: true, value: "{path}", label: "{fields.name}", search: name }
       - { name: link_label, label: Button text, type: string }
       - { name: video, label: YouTube embed link (optional), type: string }
       - { name: body, label: Text, type: rich-text }
@@ -128,6 +134,7 @@ content:
       - { name: lede, label: Opening line, type: text }
       - { name: image, label: Photo, type: image }
       - { name: image_alt, label: Photo description (for screen readers), type: string }
+      - { name: trainee_spotlight, label: "Show recent trainee research on this page", type: boolean }
       - { name: image_caption, label: Photo caption, type: string }
       - { name: body, label: Text, type: rich-text }
 

@@ -16,6 +16,7 @@
 
   const params = new URLSearchParams(location.search);
   ['q', 'topic', 'member', 'type', 'from'].forEach((k) => { if (params.get(k)) form.elements[k].value = params.get(k); });
+  if (params.get('trainee')) form.elements.trainee.checked = true;
 
   function apply(resetPaging) {
     if (resetPaging) shown = PAGE;
@@ -27,6 +28,7 @@
         (!f.member || li.dataset.members.split(' ').includes(f.member)) &&
         (!f.type || li.dataset.type === f.type) &&
         (!f.from || Number(li.dataset.year) >= Number(f.from)) &&
+        (!f.trainee || li.dataset.trainee === '1') &&
         (!q || q.split(/\s+/).every((w) => li._text.includes(w)));
       if (ok) matched++;
       li.hidden = !ok || matched > shown;

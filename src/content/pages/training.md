@@ -4,6 +4,7 @@ lede: The Cambridge Health Justice Lab mentors medical students, residents and f
 image: "/assets/img/photos/harvard-medical-school.jpg"
 image_alt: "The words Harvard Medical School carved above a building entrance"
 image_caption: ""
+trainee_spotlight: true
 ---
 The lab works with medical students from Harvard Medical School and residents in the [Cambridge Health Alliance Internal Medicine Residency](https://www.challiance.org/academics/medicine/internal-medicine-residency). Their work with the lab has appeared in leading medical journals.
 

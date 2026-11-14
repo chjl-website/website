@@ -16,9 +16,11 @@ permalink: /publications/
     </select></label>
     <label><span>Type</span><select name="type"><option value="">All types</option><option>Research</option><option>Commentary</option><option>Op-ed or magazine</option></select></label>
     <label><span>From</span><select name="from"><option value="">Any year</option></select></label>
+    <label class="f-check"><input type="checkbox" name="trainee" value="1"> <span>Fellows' work only</span></label>
     <button type="button" class="button button-quiet" id="reset">Clear</button>
   </form>
   <p class="result-count" id="count" aria-live="polite"></p>
+  {% include "trainee-key.njk" %}
   <ol class="pub-list" id="pubs">{% for p in pubs %}{% include "pub-item.njk" %}{% endfor %}</ol>
   <p class="more"><button type="button" class="button" id="more">Show more</button></p>
 </section>

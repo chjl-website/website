@@ -93,7 +93,7 @@ h2 { font-size: 1.5rem; margin: 0 0 .6em; }
 a.tag:hover { border-color: var(--accent); color: var(--ink); }
 .tag-type { background: var(--soft); color: var(--ink); }
 .pub-badge { flex: 0 0 auto; min-width: 64px; }
-.filters { display: grid; grid-template-columns: 2fr repeat(4, 1fr) auto; gap: 12px; align-items: end; padding: 16px; background: var(--soft); margin: 24px 0 8px; }
+.filters { display: grid; grid-template-columns: 2fr repeat(4, 1fr) auto auto; gap: 12px; align-items: end; padding: 16px; background: var(--soft); margin: 24px 0 8px; }
 .filters label span { display: block; font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
 .filters input, .filters select { width: 100%; font: inherit; font-size: .95rem; padding: 8px 10px; border: 1px solid #cfcfcf; background: #fff; border-radius: 0; }
 @media (max-width: 960px) { .filters { grid-template-columns: 1fr 1fr; } .f-search { grid-column: 1 / -1; } }
@@ -149,3 +149,18 @@ a.tag:hover { border-color: var(--accent); color: var(--ink); }
 .page-photo figcaption { color: var(--muted); font-size: .88rem; margin-top: 8px; }
 .footer-cha { display: inline-block; margin-top: 4px; }
 .footer-cha img { display: block; width: 180px; height: auto; }
+
+/* News page: filter chips and outlet names */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+.chip { font: inherit; font-size: .85rem; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: inherit; cursor: pointer; }
+.chip.is-on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.news-list .outlet { margin: 0 0 .2em; font-weight: 700; font-size: .95rem; }
+
+/* Trainee work: dagger after trainee authors, filter checkbox, Training page spotlight */
+.trainee { color: var(--ink); font-weight: 600; }
+.dagger { color: var(--accent); font-weight: 700; margin-left: 1px; font-size: .75em; }
+.trainee-key { font-size: .85rem; color: var(--muted); margin: 0 0 12px; }
+.f-check { display: flex; align-items: center; gap: 6px; align-self: end; padding-bottom: 8px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.trainee-spotlight { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line); }
+.trainee-spotlight h2 { margin: 0 0 .4em; }

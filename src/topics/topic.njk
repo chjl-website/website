@@ -14,6 +14,7 @@ eleventyComputed:
   <h1>{{ topic.data.name }}</h1>
   {% if topic.content | striptags | trim %}<div class="prose narrow">{{ topic.content | safe }}</div>{% endif %}
   <p class="lede">{{ pubs.length }} publications. <a href="{{ ('/publications/?topic=' + slug) }}">Filter these by lab member or year</a>.</p>
+  {% include "trainee-key.njk" %}
   <ol class="pub-list">{% for p in pubs | limit(40) %}{% include "pub-item.njk" %}{% endfor %}</ol>
   {% if pubs.length > 40 %}<p><a class="button" href="{{ ('/publications/?topic=' + slug) }}">See all {{ pubs.length }}</a></p>{% endif %}
 </section>
